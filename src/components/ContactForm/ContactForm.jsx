@@ -55,7 +55,6 @@ export default function ContactForm() {
 
   const handleSubmit = e => {
     e.preventDefault();
-
     addContact({ name, number });
     resetSubmit();
   };
