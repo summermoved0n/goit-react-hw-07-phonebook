@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import ContactListItems from '../ContactListItems/ContactListItem';
 import css from './ContactList.module.css';
-import { removeContact } from '../../redux/contactsSlice';
+import { removeContact } from '../../redux/contactsOperations';
 import { getContacts, getFilter } from '../../redux/selectors';
 
 export default function ContactList() {
@@ -19,12 +19,12 @@ export default function ContactList() {
 
   return (
     <ul className={css.list}>
-      {filteredContacts.map(({ id, name, number }) => (
+      {filteredContacts.map(({ id, name, phone }) => (
         <ContactListItems
           key={id}
           id={id}
           name={name}
-          number={number}
+          number={phone}
           deleteContact={deleteContact}
         />
       ))}

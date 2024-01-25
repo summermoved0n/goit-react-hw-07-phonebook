@@ -7,3 +7,15 @@ export async function getContacts() {
   console.log(data);
   return data;
 }
+
+export async function postContacts(postData) {
+  const { data } = await axios.post('/contacts', postData);
+  console.log(data);
+  return data;
+}
+
+export async function deleteContacts(id) {
+  const { data } = await axios.delete(`/contacts/${id}`);
+  console.log(data);
+  return data;
+}
