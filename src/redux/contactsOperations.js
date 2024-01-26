@@ -1,11 +1,15 @@
+import toast from 'react-hot-toast';
 import * as contactsAPI from '../services/api-service';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { useSelector } from 'react-redux';
+import { selectContactItems } from './selectors';
 
 export const fetchContacts = createAsyncThunk(
-  'contucts/fetchContucts',
+  'contucts/fetchContacts',
   async (_, { rejectWithValue }) => {
     try {
-      const contucts = await contactsAPI.getContacts();
+      const contucts = await contactsAPI.getFetchContacts();
+      toast.success('Your contacts were successfully fetched!');
       console.log(contucts);
       return contucts;
     } catch (error) {
@@ -18,7 +22,7 @@ export const postContact = createAsyncThunk(
   'contucts/addContact',
   async (contact, { rejectWithValue }) => {
     try {
-      const contucts = await contactsAPI.postContacts(contact);
+      const contucts = await contactsAPI.postFetchContact(contact);
       console.log(contucts);
       return contucts;
     } catch (error) {
@@ -31,9 +35,10 @@ export const removeContact = createAsyncThunk(
   'contucts/removeContact',
   async (id, { rejectWithValue }) => {
     try {
-      const contucts = await contactsAPI.deleteContacts(id);
+      console.log(id);
+      const contucts = await contactsAPI.deleteFetchContact(id);
       console.log(contucts);
-      return contucts;
+      return contucts.id;
     } catch (error) {
       return rejectWithValue(error);
     }

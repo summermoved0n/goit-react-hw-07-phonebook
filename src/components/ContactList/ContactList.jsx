@@ -2,20 +2,22 @@ import { useDispatch, useSelector } from 'react-redux';
 import ContactListItems from '../ContactListItems/ContactListItem';
 import css from './ContactList.module.css';
 import { removeContact } from '../../redux/contactsOperations';
-import { getContacts, getFilter } from '../../redux/selectors';
+import { selectVisibleContacts } from '../../redux/selectors';
+import toast from 'react-hot-toast';
 
 export default function ContactList() {
   const dispatch = useDispatch();
-  const filter = useSelector(getFilter);
-  const contacts = useSelector(getContacts);
+  const filteredContacts = useSelector(selectVisibleContacts);
 
   const deleteContact = id => {
+    console.log(id);
     dispatch(removeContact(id));
+    const removeName = filteredContacts.find(item => item.id === id);
+    console.log(removeName);
+    toast(`You deleted '${removeName.name}'!`, {
+      icon: '💔',
+    });
   };
-
-  const filteredContacts = contacts.filter(contact =>
-    contact.name.toLowerCase().includes(filter.toLowerCase())
-  );
 
   return (
     <ul className={css.list}>

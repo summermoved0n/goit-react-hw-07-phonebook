@@ -6,6 +6,7 @@ import { setFilter } from '../../redux/contactsSlice';
 export default function Filter() {
   const dispatch = useDispatch();
   const inputFilterId = nanoid();
+
   const handleFilter = e => {
     const { value } = e.currentTarget;
     dispatch(setFilter(value));

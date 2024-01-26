@@ -1,17 +1,16 @@
 // import { nanoid } from 'nanoid';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import css from './ContactForm.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { getContacts } from '../../redux/selectors';
+import { selectContactItems } from '../../redux/selectors';
 import { postContact } from '../../redux/contactsOperations';
+import toast from 'react-hot-toast';
 
 export default function ContactForm() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const dispatch = useDispatch();
-  const contacts = useSelector(getContacts);
-
-  useEffect(() => {}, []);
+  const contacts = useSelector(selectContactItems);
 
   const handleChange = e => {
     const { name, value } = e.currentTarget;
@@ -31,14 +30,12 @@ export default function ContactForm() {
 
   const addContact = data => {
     const { name, number } = data;
-    console.log(data);
-
     const getName = contacts.find(
       contact => contact.name.toLowerCase() === name.toLowerCase()
     );
 
     if (getName) {
-      alert(`${name} is already in contacts`);
+      toast.error(`'${name}' is already in contacts!`);
       return;
     }
     const contact = {
@@ -48,6 +45,9 @@ export default function ContactForm() {
     };
     console.log(contact);
     dispatch(postContact(contact));
+    toast(`Contact '${name}' was successfully added!`, {
+      icon: '👏',
+    });
   };
 
   const resetSubmit = () => {
