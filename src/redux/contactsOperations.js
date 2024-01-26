@@ -1,8 +1,6 @@
 import toast from 'react-hot-toast';
 import * as contactsAPI from '../services/api-service';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { useSelector } from 'react-redux';
-import { selectContactItems } from './selectors';
 
 export const fetchContacts = createAsyncThunk(
   'contucts/fetchContacts',
