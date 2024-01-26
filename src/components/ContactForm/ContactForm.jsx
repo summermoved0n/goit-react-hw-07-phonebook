@@ -44,10 +44,16 @@ export default function ContactForm() {
       phone: number,
     };
     console.log(contact);
-    dispatch(postContact(contact));
-    toast(`Contact '${name}' was successfully added!`, {
-      icon: '👏',
-    });
+    dispatch(postContact(contact))
+      .unwrap()
+      .then(() => {
+        toast(`Contact '${name}' was successfully added!`, {
+          icon: '👏',
+        });
+      })
+      .catch(() => {
+        toast.success('Oops, something went wrong!');
+      });
   };
 
   const resetSubmit = () => {
@@ -76,6 +82,7 @@ export default function ContactForm() {
           id={inputNameId}
           required
           onChange={handleChange}
+          autoComplete="off"
         />
       </label>
       <label htmlFor={inputNumberId}>
@@ -88,6 +95,7 @@ export default function ContactForm() {
           id={inputNumberId}
           required
           onChange={handleChange}
+          autoComplete="off"
         />
       </label>
       <button className={css.form_btn} type="submit">

@@ -9,14 +9,17 @@ export default function ContactList() {
   const dispatch = useDispatch();
   const filteredContacts = useSelector(selectVisibleContacts);
 
-  const deleteContact = id => {
-    console.log(id);
-    dispatch(removeContact(id));
-    const removeName = filteredContacts.find(item => item.id === id);
-    console.log(removeName);
-    toast(`You deleted '${removeName.name}'!`, {
-      icon: '💔',
-    });
+  const deleteContact = (id, name) => {
+    dispatch(removeContact(id))
+      .unwrap()
+      .then(() => {
+        toast(`You deleted '${name}'!`, {
+          icon: '💔',
+        });
+      })
+      .catch(() => {
+        toast.success('Oops, something went wrong!');
+      });
   };
 
   return (

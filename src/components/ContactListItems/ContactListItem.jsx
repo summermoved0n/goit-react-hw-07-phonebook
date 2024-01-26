@@ -10,7 +10,7 @@ export default function ContactListItem({ id, name, number, deleteContact }) {
       <button
         className={css.item_btn}
         type="button"
-        onClick={() => deleteContact(id)}
+        onClick={() => deleteContact(id, name)}
       >
         Delete
       </button>

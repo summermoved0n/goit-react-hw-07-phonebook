@@ -1,4 +1,3 @@
-import toast from 'react-hot-toast';
 import * as contactsAPI from '../services/api-service';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
@@ -7,7 +6,6 @@ export const fetchContacts = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const contucts = await contactsAPI.getFetchContacts();
-      toast.success('Your contacts were successfully fetched!');
       console.log(contucts);
       return contucts;
     } catch (error) {

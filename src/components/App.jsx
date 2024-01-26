@@ -7,7 +7,7 @@ import { selectContactItems, selectContactLoading } from '../redux/selectors';
 import { useEffect } from 'react';
 import { fetchContacts } from '../redux/contactsOperations';
 import { Spinner } from './Spinner/Spinner';
-import { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 
 export default function App() {
   const contacts = useSelector(selectContactItems);
@@ -16,7 +16,14 @@ export default function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchContacts());
+    dispatch(fetchContacts())
+      .unwrap()
+      .then(() => {
+        toast.success('Your contacts were successfully fetched!');
+      })
+      .catch(() => {
+        toast.success('Oops, something went wrong!');
+      });
   }, [dispatch]);
 
   return (
